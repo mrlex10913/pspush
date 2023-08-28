@@ -9,14 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 
-class User extends Authenticatable
+class User extends Authenticatable implements LdapAuthenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use Notifiable, AuthenticatesWithLdap;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +23,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'ntlogin',
         'password',
     ];
 
